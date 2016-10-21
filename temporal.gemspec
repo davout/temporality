@@ -26,8 +26,10 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'redcarpet', '~> 3.1'
   s.add_development_dependency 'simplecov', '~> 0.9'
   s.add_development_dependency 'coveralls', '~> 0.7'
+  s.add_development_dependency 'active_record'
 
   s.files = Dir.glob('lib/**/*') + %w(LICENSE README.md)
 
   s.require_path = 'lib'
 end
+
