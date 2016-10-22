@@ -1,6 +1,6 @@
 require_relative '../spec_helper'
 
-RSpec.describe Temporal::Associations do
+RSpec.describe Temporality::Associations do
 
   describe '#belongs_to' do
     let(:dog_options) { Dog.instance_variable_get(:@temporality) }

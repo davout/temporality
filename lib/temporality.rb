@@ -1,15 +1,15 @@
 require 'date'
 
-require 'temporal/version'
-require 'temporal/validation'
-require 'temporal/default_boundary_values'
-require 'temporal/attribute_overrides'
-require 'temporal/associations'
+require 'temporality/version'
+require 'temporality/validation'
+require 'temporality/default_boundary_values'
+require 'temporality/attribute_overrides'
+require 'temporality/associations'
 
 # TODO : Raise exception if end_date is before start_date
 # TODO : Migration helpers
 
-module Temporal
+module Temporality
 
   # Used when no start date is defined
   PAST_INFINITY = Date.new(1500, 1, 1)

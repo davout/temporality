@@ -1,4 +1,4 @@
-module Temporal
+module Temporality
   module DefaultBoundaryValues
 
     def self.included(base)

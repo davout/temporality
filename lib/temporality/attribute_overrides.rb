@@ -1,4 +1,4 @@
-module Temporal
+module Temporality
 
   module AttributeOverrides
 
@@ -21,17 +21,17 @@ module Temporal
     private
 
     #
-    # Floors the parameter to `Temporal::PAST_INFINITY`
+    # Floors the parameter to `Temporality::PAST_INFINITY`
     #
     def floor_to_temporal_infinity(d)
-      [d, Temporal::PAST_INFINITY].compact.max
+      [d, Temporality::PAST_INFINITY].compact.max
     end
 
     #
-    # Ceils the parameter to `Temporal::FUTURE_INFINITY`
+    # Ceils the parameter to `Temporality::FUTURE_INFINITY`
     #
     def ceil_to_temporal_infinity(d)
-      [d, Temporal::FUTURE_INFINITY].compact.min
+      [d, Temporality::FUTURE_INFINITY].compact.min
     end
 
 

@@ -1,12 +1,12 @@
 require_relative '../spec_helper'
 
-RSpec.describe Temporal::Validation do
+RSpec.describe Temporality::Validation do
 
   context 'when the start date is after the end date' do
     let(:model) { Dummy.new({ starts_on: Date.new(2016, 12, 31), ends_on: Date.new(2016, 1, 1) }) }
 
     it 'should raise en exception when saving the model' do
-      expect { model.save }.to raise_error(Temporal::Violation)
+      expect { model.save }.to raise_error(Temporality::Violation)
     end
   end
 
@@ -18,7 +18,7 @@ RSpec.describe Temporal::Validation do
       before { dog }
 
       it 'should raise an exception' do
-        expect { person.save }.to raise_error(Temporal::Violation)
+        expect { person.save }.to raise_error(Temporality::Violation)
       end
     end
 
@@ -26,7 +26,7 @@ RSpec.describe Temporal::Validation do
       before { person.save }
 
       it 'should raise an exception when saving the child' do
-        expect { dog.save }.to raise_error(Temporal::Violation)
+        expect { dog.save }.to raise_error(Temporality::Violation)
       end
     end
 

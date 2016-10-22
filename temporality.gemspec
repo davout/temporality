@@ -3,11 +3,11 @@
 lib = File.expand_path('../lib/', __FILE__)
 $:.unshift lib unless $:.include?(lib)
 
-require 'temporal/version'
+require 'temporality/version'
 
 Gem::Specification.new do |s|
-  s.name        = 'temporal'
-  s.version     = Temporal::VERSION
+  s.name        = 'temporality'
+  s.version     = Temporality::VERSION
   s.platform    = Gem::Platform::RUBY
   s.authors     = ['David FRANCOIS']
   s.email       = ['david@paygun.fr']
@@ -17,8 +17,6 @@ Gem::Specification.new do |s|
   s.licenses    = ['MIT']
 
   s.required_rubygems_version = '>= 1.3.6'
-
-  s.add_dependency 'time-genie', '~> 0.0.1'
 
   s.add_development_dependency 'rspec',     '~> 3.1'
   s.add_development_dependency 'rake',      '~> 10.3'

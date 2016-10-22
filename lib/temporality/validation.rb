@@ -1,6 +1,6 @@
-require 'temporal/violation'
+require 'temporality/violation'
 
-module Temporal
+module Temporality
   module Validation
 
     def valid?(*args, &block)
@@ -21,7 +21,7 @@ module Temporal
 
     def validate_bounds_order!
       if starts_on > ends_on
-        raise Temporal::Violation.new("Start date is after end date [#{starts_on} - #{ends_on}]")
+        raise Temporality::Violation.new("Start date is after end date [#{starts_on} - #{ends_on}]")
       end
     end
 
@@ -30,7 +30,7 @@ module Temporal
         parent = send(assoc)
 
         if parent.starts_on > starts_on || parent.ends_on < ends_on
-          raise Temporal::Violation.new("Record of class #{self.class} is not temporally included in parent of class #{parent.class}, [#{starts_on} - #{ends_on}] is not included in [#{parent.starts_on} - #{parent.ends_on}]")
+          raise Temporality::Violation.new("Record of class #{self.class} is not temporally included in parent of class #{parent.class}, [#{starts_on} - #{ends_on}] is not included in [#{parent.starts_on} - #{parent.ends_on}]")
         end
       end
     end

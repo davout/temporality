@@ -12,7 +12,7 @@ SimpleCov.start do
   add_filter '/spec/'
 end
 
-require(File.expand_path('../../lib/temporal', __FILE__))
+require(File.expand_path('../../lib/temporality', __FILE__))
 
 require 'active_record'
 require 'sqlite3'
@@ -30,16 +30,16 @@ schema_init = [
 schema_init.each { |query| ActiveRecord::Base.connection.execute(query) }
 
 class Dummy < ActiveRecord::Base
-  include Temporal
+  include Temporality
 end
 
 class Person < ActiveRecord::Base
-  include Temporal
+  include Temporality
   has_many :dogs
 end
 
 class Dog < ActiveRecord::Base
-  include Temporal
+  include Temporality
   belongs_to :person, temporality: { inclusion: true }
 end
 

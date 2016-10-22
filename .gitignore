@@ -4,4 +4,5 @@ coverage/
 .byebug_history
 test.sqlite3
 doc/
+Gemfile.lock
 

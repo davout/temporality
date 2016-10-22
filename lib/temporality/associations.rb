@@ -1,4 +1,4 @@
-module Temporal
+module Temporality
   module Associations
 
     # TODO : Use class-inheritable instance variables
