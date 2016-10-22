@@ -1,13 +1,15 @@
 require 'date'
 
 require 'temporality/version'
+
+require 'temporality/slice_collection'
+
 require 'temporality/validation'
 require 'temporality/default_boundary_values'
 require 'temporality/attribute_overrides'
 require 'temporality/associations'
 
-# TODO : Raise exception if end_date is before start_date
-# TODO : Migration helpers
+require 'temporality/migration_helpers'
 
 module Temporality
 
@@ -27,5 +29,9 @@ module Temporality
     INCLUDES.each { |mod| base.include(mod) }
   end
 
+end
+
+if Object.const_defined?(:ActiveRecord)
+  ActiveRecord::Migration.send(:include, Temporality::MigrationHelpers)
 end
 

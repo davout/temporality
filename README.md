@@ -13,4 +13,6 @@ Temporality adds the ability to `ActiveRecord::Base` descendants to validate tem
 
 - Doit faire l'auto-close des records précédents, avec callbacks
 - Doit faire l'auto-close des enfants, avec callbacks
+- Doit permettre d'initialiser l'enfant avec les bornes du parent en faisant par exemple parent.children.build
+- Scopes AR : intersecting, contained, englobant
 

@@ -29,7 +29,7 @@ module Temporality
       if constraints[:inclusion]
         parent = send(assoc)
 
-        if parent.starts_on > starts_on || parent.ends_on < ends_on
+        if parent && (parent.starts_on > starts_on || parent.ends_on < ends_on)
           raise Temporality::Violation.new("Record of class #{self.class} is not temporally included in parent of class #{parent.class}, [#{starts_on} - #{ends_on}] is not included in [#{parent.starts_on} - #{parent.ends_on}]")
         end
       end
