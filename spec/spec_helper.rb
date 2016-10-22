@@ -1,5 +1,7 @@
 require 'simplecov'
 require 'coveralls'
+require 'fileutils'
+require 'byebug'
 
 SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new([
   SimpleCov::Formatter::HTMLFormatter,
@@ -11,4 +13,33 @@ SimpleCov.start do
 end
 
 require(File.expand_path('../../lib/temporal', __FILE__))
+
+require 'active_record'
+require 'sqlite3'
+
+FileUtils.rm('test.sqlite3')
+db = { adapter: 'sqlite3', database: 'test.sqlite3' }
+ActiveRecord::Base.establish_connection(db)
+
+schema_init = [
+  'CREATE TABLE dummies (id INTEGER AUTO_INCREMENT, starts_on DATE NOT NULL, ends_on DATE NOT NULL, PRIMARY KEY(id))',
+  'CREATE TABLE people (id INTEGER AUTO_INCREMENT, starts_on DATE NOT NULL, ends_on DATE NOT NULL, PRIMARY KEY(id))',
+  'CREATE TABLE dogs (id INTEGER AUTO_INCREMENT, person_id INTEGER NOT NULL, starts_on DATE NOT NULL, ends_on DATE NOT NULL, PRIMARY KEY(id))'
+]
+
+schema_init.each { |query| ActiveRecord::Base.connection.execute(query) }
+
+class Dummy < ActiveRecord::Base
+  include Temporal
+end
+
+class Person < ActiveRecord::Base
+  include Temporal
+  has_many :dogs
+end
+
+class Dog < ActiveRecord::Base
+  include Temporal
+  belongs_to :person, temporality: { inclusion: true }
+end
 
