@@ -5,4 +5,6 @@ coverage/
 test.sqlite3
 doc/
 Gemfile.lock
+*.gem
+.yardoc
 
