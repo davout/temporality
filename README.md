@@ -5,7 +5,7 @@ Temporality [![Build Status](https://secure.travis-ci.org/davout/temporality.png
 Temporality adds the ability to `ActiveRecord::Base` descendants to validate temporal data on themselves, and their associations.
 
 ## Target features
-- Completeness implique prevent_overlap!
+- Completeness implique prevent_overlap! implique également d'être deferred jusqu'au commit de la transaction
 - Enforce this is only used on belong_to associations
 - Doit permettre de valider que le parent est rempli
 - Doit permettre au parent de valider que les enfants sont inclus
