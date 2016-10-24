@@ -1,7 +1,21 @@
 require 'temporality/violation'
 
+require 'temporality/auto_close'
+require 'temporality/completeness'
+require 'temporality/overlap'
+require 'temporality/inclusion'
+
 module Temporality
   module Validation
+
+    VALIDATIONS = {
+      inclusion:        Inclusion,
+      prevent_overlap:  Overlap,
+      completeness:     Completeness,
+      auto_close:       AutoClose
+    }
+
+    DEFAULTS = { inclusion: true, completeness: false, prevent_overlap: false, auto_close: false }
 
     def valid?(*args, &block)
       validate_temporality_contraints!
@@ -12,26 +26,22 @@ module Temporality
     private
 
     def validate_temporality_contraints!
-      validate_bounds_order!
+      validate_bounds_order
 
       temporal_associations.each do |assoc, constraints|
-        validate_inclusion_in_parents!(assoc, constraints)
+        constraints.select { |k,v| v }.keys.each do |constraint|
+          validate_constraint(assoc, constraint)
+        end
       end
     end
 
-    def validate_bounds_order!
+    def validate_constraint(assoc, constraint)
+      VALIDATIONS[constraint].new(self, assoc).validate
+    end
+
+    def validate_bounds_order
       if starts_on > ends_on
         raise Temporality::Violation.new("Start date is after end date [#{starts_on} - #{ends_on}]")
-      end
-    end
-
-    def validate_inclusion_in_parents!(assoc, constraints)
-      if constraints[:inclusion]
-        parent = send(assoc)
-
-        if parent && (parent.starts_on > starts_on || parent.ends_on < ends_on)
-          raise Temporality::Violation.new("Record of class #{self.class} is not temporally included in parent of class #{parent.class}, [#{starts_on} - #{ends_on}] is not included in [#{parent.starts_on} - #{parent.ends_on}]")
-        end
       end
     end
 

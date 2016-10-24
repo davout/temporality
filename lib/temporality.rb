@@ -8,8 +8,8 @@ require 'temporality/validation'
 require 'temporality/default_boundary_values'
 require 'temporality/attribute_overrides'
 require 'temporality/associations'
-
-require 'temporality/migration_helpers'
+require 'temporality/schema'
+require 'temporality/scopes'
 
 module Temporality
 
@@ -20,7 +20,7 @@ module Temporality
   FUTURE_INFINITY = Date.new(5000, 1, 1)
 
   PREPENDS  = [ AttributeOverrides, Validation ]
-  EXTENDS   = [ Associations ]
+  EXTENDS   = [ Associations, Scopes ]
   INCLUDES  = [ DefaultBoundaryValues ]
 
   def self.included(base)
@@ -29,9 +29,5 @@ module Temporality
     INCLUDES.each { |mod| base.include(mod) }
   end
 
-end
-
-if Object.const_defined?(:ActiveRecord)
-  ActiveRecord::Migration.send(:include, Temporality::MigrationHelpers)
 end
 
