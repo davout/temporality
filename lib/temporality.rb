@@ -10,6 +10,7 @@ require 'temporality/attribute_overrides'
 require 'temporality/associations'
 require 'temporality/schema'
 require 'temporality/scopes'
+require 'temporality/day_count'
 
 module Temporality
 
@@ -27,6 +28,8 @@ module Temporality
     PREPENDS.each { |mod| base.prepend(mod) }
     EXTENDS.each  { |mod| base.extend(mod) }
     INCLUDES.each { |mod| base.include(mod) }
+
+    ActiveRecord::Base.send(:include, DayCount)
   end
 
 end

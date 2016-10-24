@@ -27,7 +27,8 @@ RSpec.describe Temporality::Overlap do
     end
 
     context 'when overlapping is allowed' do
-      before { Dog.instance_variable_get(:@temporality)[:person][:prevent_overlap] = false }
+      before  { Dog.instance_variable_get(:@temporality)[:person][:prevent_overlap] = false }
+      after   { Dog.instance_variable_get(:@temporality)[:person][:prevent_overlap] = true }
 
       context 'when creating an overlapping record' do
         before { dog.starts_on = Date.new(2016, 2, 1) }

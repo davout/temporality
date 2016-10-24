@@ -4,10 +4,7 @@ module Temporality
   class Overlap < ValidationStrategy
 
     def validate
-      inverse = @model.class.reflect_on_association(@assoc).send(:inverse_name)
-      raise "Unable to validate temporality overlap for #{@model.class} without inverse for association '#{@assoc}'" unless inverse
-
-      overlapping = @model.send(@assoc).send(inverse).intersecting(@model)
+      overlapping = inverse.intersecting(@model)
 
       if @model.id
         overlapping = overlapping.where('id <> ?', @model.id)
