@@ -37,3 +37,4 @@ class Compensation < ActiveRecord::Base
   belongs_to :contract, temporality: { inclusion: true, auto_close_previous: true, allow_overlap: false, completeness: true }
 end
 ````
+
