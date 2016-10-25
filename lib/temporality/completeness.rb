@@ -14,6 +14,8 @@ module Temporality
       "#{@model.send(@assoc).class} record must have a temporally complete children collection for assocation #{inverse_name}"
     end
 
+    # TODO : Check if in transaction ActiveRecord::Base.connection.open_transactions
+
   end
 end
 
