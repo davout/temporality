@@ -8,7 +8,7 @@ require 'temporality/inclusion'
 module Temporality
   module Validation
 
-    VALIDATIONS = {
+     CONSTRAINTS = {
       inclusion:        Inclusion,
       prevent_overlap:  Overlap,
       completeness:     Completeness,
@@ -29,14 +29,14 @@ module Temporality
       validate_bounds_order
 
       temporal_associations.each do |assoc, constraints|
-        constraints.select { |k,v| v }.keys.each do |constraint|
+        constraints.map { |constraint, enabled| constraint if enabled }.compact.each do |constraint|
           validate_constraint(assoc, constraint)
         end
       end
     end
 
-    def validate_constraint(assoc, constraint)
-      VALIDATIONS[constraint].new(self, assoc).validate
+    def validate_constraint(assoc, constraint_name)
+      CONSTRAINTS[constraint_name].new(self, assoc).validate
     end
 
     def validate_bounds_order

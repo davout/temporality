@@ -24,7 +24,7 @@ RSpec.describe Temporality::Completeness do
     end
   end
 
-  context 'when having invalid temporarily inside a transaction block' do
+  context 'when having invalid state temporarily inside a transaction block' do
     before do
       dog.ends_on = person.ends_on
       dog.save
@@ -33,7 +33,7 @@ RSpec.describe Temporality::Completeness do
     context 'when the state is valid at the end of the transaction' do
       before do
         @transaction = Proc.new do
-          ActiveRecord::Base.transaction do
+          Temporality.transaction do
             coco = person.dogs.first
             coco.ends_on = Date.new(2016, 6, 30)
             coco.save
@@ -58,7 +58,7 @@ RSpec.describe Temporality::Completeness do
     context 'when the state is invalid at the end of the transaction' do
       before do
         @transaction = Proc.new do
-          ActiveRecord::Base.transaction do
+          Temporality.transaction do
             coco = person.dogs.first
             coco.ends_on = Date.new(2016, 6, 30)
             coco.save
@@ -76,7 +76,7 @@ RSpec.describe Temporality::Completeness do
       end
 
       it 'should not save the second child record' do
-        expect(&@transaction).to_not change { person.dogs.count }
+        expect { @transaction.call rescue nil }.to_not change { person.dogs.count }
       end
 
       it 'should not change the first child record' do

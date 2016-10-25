@@ -11,8 +11,11 @@ require 'temporality/associations'
 require 'temporality/schema'
 require 'temporality/scopes'
 require 'temporality/day_count'
+require 'temporality/transaction'
 
 module Temporality
+
+  extend Transaction
 
   # Used when no start date is defined
   PAST_INFINITY = Date.new(1500, 1, 1)
