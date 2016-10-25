@@ -6,7 +6,7 @@ RSpec.describe Temporality::Overlap do
   before { person.dogs.create({ starts_on: Date.new(2016, 1, 1), ends_on: Date.new(2016, 6, 30) }) }
 
   context 'when a record already exists' do
-      let(:dog) { person.dogs.new({ ends_on: Date.new(2016, 11, 30) }) }
+    let(:dog) { person.dogs.new({ ends_on: Date.new(2016, 11, 30) }) }
 
     context 'when overlapping is forbidden' do
       context 'when creating a non overlapping record' do
