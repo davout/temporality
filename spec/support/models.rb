@@ -11,7 +11,9 @@ end
 
 class Dog < ActiveRecord::Base
   include Temporality
-  belongs_to :person, temporality: { inclusion: true, auto_close: false, prevent_overlap: true, completeness: false }, inverse_of: :dogs
+  belongs_to :person,
+    inverse_of: :dogs,
+    temporality: { inclusion: true, auto_close: false, prevent_overlap: true, completeness: false }
 end
 
 

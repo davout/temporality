@@ -12,6 +12,7 @@ require 'temporality/schema'
 require 'temporality/scopes'
 require 'temporality/day_count'
 require 'temporality/transaction'
+require 'temporality/association_extensions'
 
 # = Temporality
 #
