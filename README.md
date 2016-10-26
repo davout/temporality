@@ -4,22 +4,6 @@ Temporality [![Build Status](https://secure.travis-ci.org/davout/temporality.png
 ## What is Temporality
 Temporality adds the ability to `ActiveRecord::Base` descendants to validate temporal data on themselves, and their associations.
 
-## TODO
-
-- Completeness implique prevent\_overlap! implique également d'être deferred jusqu'au commit de la transaction
-- Enforce this is only used on belongs\_to/has\_many associations
-- Auto close implies overlap forbidden
-- Auto close should only work if the first child closes at future infinity
-- Does auto-close imply completeness?
-- Auto-close implies inclusion? only if auto-close parent?
-
-- Doit faire l'auto-close des records précédents, avec callbacks
-- Doit faire l'auto-close des enfants, avec callbacks
-- Doit permettre d'initialiser l'enfant avec les bornes du parent en faisant par exemple parent.children.build
-- Scopes AR : intersecting, contained, englobant
-- Quand les bornes du parent sont changées on doit jouer les validations de l'enfant, sinon dans les autres cas, c'est l'enfant qu'on valide
-- Que se passe-t-il quand on modifie les bornes du parent, mais qu'on modifie en même temps les bornes de l'enfant ?
-
 ## Examples
 
 ````ruby

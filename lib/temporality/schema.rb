@@ -1,8 +1,9 @@
-#
-# Defines a `temporality` migration helper for use in a `create_table` block as well
-# as a `temporality(:table)` helper to be used to alter existing table definitions.
-#
 module Temporality
+
+  #
+  # Defines a +temporality+ migration helper for use in a +create_table+ block as well
+  # as a +temporality(:table)+ helper to be used to alter existing table definitions.
+  #
   module Schema
 
     def self.include_helpers!

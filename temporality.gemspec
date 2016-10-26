@@ -18,15 +18,15 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = '>= 1.3.6'
 
-  s.add_development_dependency 'rspec',     '~> 3.1'
-  s.add_development_dependency 'rake',      '~> 10.3'
-  s.add_development_dependency 'yard',      '~> 0.8'
-  s.add_development_dependency 'redcarpet', '~> 3.1'
-  s.add_development_dependency 'simplecov', '~> 0.9'
-  s.add_development_dependency 'coveralls', '~> 0.7'
-  s.add_development_dependency 'activerecord'
-  s.add_development_dependency 'sqlite3'
-  s.add_development_dependency 'byebug'
+  s.add_development_dependency 'rspec',         '~> 3.1'
+  s.add_development_dependency 'rake',          '~> 10.3'
+  s.add_development_dependency 'yard',          '~> 0.8'
+  s.add_development_dependency 'redcarpet',     '~> 3.1'
+  s.add_development_dependency 'simplecov',     '~> 0.9'
+  s.add_development_dependency 'coveralls',     '~> 0.7'
+  s.add_development_dependency 'activerecord',  '~> 5.0'
+  s.add_development_dependency 'sqlite3',       '~> 1.3'
+  s.add_development_dependency 'byebug',        '~> 9.0'
 
   s.files = Dir.glob('lib/**/*') + %w(LICENSE README.md)
 

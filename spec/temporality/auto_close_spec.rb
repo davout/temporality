@@ -13,19 +13,25 @@ RSpec.describe Temporality::AutoClose do
       let(:dog) { person.dogs.build({ starts_on: Date.new(2016, 5, 1) }) }
 
       it 'should successfully save the child' do
-        expect { dog.save }.to change { person.dogs.count }.by(1)
+        expect { Temporality.transaction { dog.save } }.to change { person.dogs.count }.by(1)
       end
 
       it 'should have auto-closed the previous child' do
-        expect { dog.save }.to change { person.dogs.first.ends_on }.from(Temporality::FUTURE_INFINITY).to(Date.new(2016, 4, 30))
+        expect { Temporality.transaction { dog.save } }.to change { person.dogs.first.ends_on }.from(Temporality::FUTURE_INFINITY).to(Date.new(2016, 4, 30))
+      end
+
+      context 'outside of Temporality.transaction block' do
+        it 'should fail with a Temporality::NoTransaction error' do
+          expect { dog.save }.to raise_error(Temporality::NoTransactionError)
+        end
       end
     end
 
     context 'when saving a fully overlapping child' do
-      let(:dog) { person.dogs.build({ starts_on: Date.new(2016, 5, 1) }) }
+      let(:dog) { person.dogs.build({ starts_on: Date.new(2015, 12, 1) }) }
 
       it 'should fail to save the child' do
-        expect { dog.save }.to raise_error(Temporality::Violation)
+        expect { Temporality.transaction { dog.save } }.to raise_error(Temporality::AutoCloseError)
       end
     end
   end

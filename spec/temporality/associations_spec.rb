@@ -8,7 +8,6 @@ RSpec.describe Temporality::Associations do
     it 'should correctly set the association options' do
       expect(dog_options).to be_a(Hash)
     end
-
   end
 
 end

@@ -1,5 +1,3 @@
-require 'temporality/violation'
-
 require 'temporality/auto_close'
 require 'temporality/completeness'
 require 'temporality/overlap'
@@ -8,11 +6,10 @@ require 'temporality/inclusion'
 module Temporality
   module Validation
 
-     CONSTRAINTS = {
+    CONSTRAINTS = {
       inclusion:        Inclusion,
       prevent_overlap:  Overlap,
-      completeness:     Completeness,
-      auto_close:       AutoClose
+      completeness:     Completeness
     }
 
     DEFAULTS = { inclusion: true, completeness: false, prevent_overlap: false, auto_close: false }
@@ -28,7 +25,13 @@ module Temporality
     def validate_temporality_contraints!
       validate_bounds_order
 
-      temporal_associations.each do |assoc, constraints|
+      temporal_associations.each do |assoc, constrs|
+        constraints = constrs.dup
+
+        if constraints.delete(:auto_close)
+          AutoClose.new(self, assoc).call
+        end
+
         constraints.map { |constraint, enabled| constraint if enabled }.compact.each do |constraint|
           validate_constraint(assoc, constraint)
         end
