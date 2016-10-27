@@ -1,0 +1,7 @@
+--readme README.md
+--title 'Temporality Documentation'
+--charset utf-8
+--markup markdown
+--private
+'lib/**/*.rb'
+

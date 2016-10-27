@@ -6,7 +6,7 @@ end
 
 class Person < ActiveRecord::Base
   include Temporality
-  has_many :dogs
+  has_many :dogs, extend: Temporality::AssociationExtensions
 end
 
 class Dog < ActiveRecord::Base

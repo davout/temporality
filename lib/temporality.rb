@@ -1,7 +1,6 @@
 require 'date'
 
 require 'temporality/version'
-
 require 'temporality/slice_collection'
 require 'temporality/errors'
 require 'temporality/validation'
@@ -14,7 +13,7 @@ require 'temporality/day_count'
 require 'temporality/transaction'
 require 'temporality/association_extensions'
 
-# = Temporality
+# # Temporality
 #
 # Root module for temporal functionality, include it in ActiveRecord classes
 # to benefit from the temporality features.
@@ -22,7 +21,7 @@ require 'temporality/association_extensions'
 # This functionality requires a +starts_on+ and +ends_on+ attribute pair defined
 # on the models in which the module is included.
 #
-# == Example
+# ## Example
 #
 # This will define three classes with temporality constraints. An employment
 # contract will be required to be temporally within the bounds of the legal entity
@@ -66,22 +65,26 @@ module Temporality
   FUTURE_INFINITY = Date.new(5000, 1, 1)
 
   # Prepended modules
-  PREPENDS  = [ AttributeOverrides, Validation ]
+  PREPENDS = [ AttributeOverrides, Validation ]
 
   # Extensions to the included class
-  EXTENDS   = [ Associations, Scopes ]
+  EXTENDS = [ Associations, Scopes ]
 
   # Inclusions for the included class
-  INCLUDES  = [ DefaultBoundaryValues ]
+  INCLUDES = [ DefaultBoundaryValues ]
 
+  #
+  # Sets-up all the required behaviour for temporal functionality on `base`
+  #
+  # @param base [ActiveRecord::Base]
+  #
   def self.included(base)
     PREPENDS.each { |mod| base.prepend(mod) }
     EXTENDS.each  { |mod| base.extend(mod) }
     INCLUDES.each { |mod| base.include(mod) }
-
-    # TODO : On va peut-être pas l'inclure 50 fois ce truc...
-    ActiveRecord::Base.send(:include, DayCount)
   end
 
 end
+
+ActiveRecord::Base.send(:include, Temporality::DayCount)
 
